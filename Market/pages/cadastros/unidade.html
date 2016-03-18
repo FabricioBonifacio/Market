@@ -1,0 +1,74 @@
+<div  ng-controller="unidadeCtrl">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="box box-success">
+				<div class="box-header">
+					<i class="fa fa-eyedropper"></i><h3 class="box-title"> Unidade de Medida</h3>  
+					<div class="box-tools">
+						<div class="input-group">
+							<input type="text" name="table_search" class="form-control input-sm pull-right" ng-model="search" style="width: 150px;" placeholder="Search"/>
+							<div class="input-group-btn">
+								<button class="btn btn-sm btn-default"><i class="fa fa-search"></i></button>
+							</div>
+						</div>
+					</div>										
+				</div><!-- /.box-header -->
+				<div class="box-body no-padding">
+					<table class="table table-hover">
+						<tr class="hover">
+							<th style="width: 10px">#</th>
+							<th>Unidade</th>
+							<th style="width: 440px">Sigla</th>
+							<th></th>
+						</tr>
+						<tr ng-repeat='unidade in unidades | filter: search'>
+							<td>{{unidade.ID}}</td>
+							<td>{{unidade.Nome}}</td>
+							<td><small class="label label-warning">{{unidade.Sigla}}</small></td>
+							<td>
+								<button class="btn btn-danger btn-xs pull-right" style="margin-right:20px" ng-click="excluir(unidade)"><i class="fa fa-trash"></i> </button>
+								<button class="btn btn-success btn-xs pull-right" style="margin-right:10px" data-toggle="modal" data-target="#modalUnidade" ng-click="editar(unidade)"><i class="fa fa-edit"></i> </button>
+							</td>
+						</tr>
+					</table>
+				</div><!-- /.box-body -->
+				<div class="box-footer clearfix no-border">
+					<button class="btn btn-primary pull-right" data-toggle="modal" data-target="#modalUnidade" ng-click="novo()"><i class="fa fa-plus"></i> Adicionar Unidade de Medida</button>										
+				</div>
+			</div><!-- /.box -->
+		</div><!-- /.col -->
+	</div><!-- /. row -->
+	<div class="modal fade" tabindex="-1"  id="modalUnidade" tabindex="-1" role="dialog">
+	<div class="modal-dialog">
+		<div class="modal-content">
+		  <div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			 
+			<h4 class="modal-title">Nova Unidade de Medida</h4>
+		  </div>
+		  <div class="modal-body">
+			  <form name="unidadeForm">
+				<div class="row">
+					<div class="col-xs-6">
+						<div class="input-group">
+							<span class="input-group-addon">Unidade</span>
+							<input type="text" ng-model="unidade.Nome" class="form-control" class="form-control" ng-required="true" ng-minlength="3">
+						</div>
+					</div>
+					<div class="col-xs-4">
+						<div class="input-group">
+							<span class="input-group-addon">Sigla</span>
+							<input type="text" ng-model="unidade.Sigla" class="form-control" class="form-control" ng-required="true">
+						</div>
+					</div>
+				</div>
+			  </form>
+		  </div>
+		  <div class="modal-footer">
+			<button type="button" class="btn btn-default" data-dismiss="modal" id="closeButton">Cancelar</button>
+			<button type="button" class="btn btn-primary" ng-click="adicionar(unidade)" ng-disabled="unidadeForm.$invalid">Salvar</button>
+		  </div>
+		</div><!-- /.modal-content -->
+	  </div><!-- /.modal-dialog -->
+	</div><!-- /.modal -->
+</div>

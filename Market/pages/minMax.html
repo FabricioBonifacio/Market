@@ -1,0 +1,67 @@
+<!-- Map box -->
+<div ng-controller="minMaxCtrl">
+	<div class="box box-danger">
+		<div class="box-header">
+			<i class="fa fa-line-chart"></i><h3 class="box-title"> Mínimo e Máximo</h3>  
+			<div class="box-tools">
+				<div class="input-group">
+					<input type="text" name="table_search" class="form-control input-sm pull-right" ng-model="search" style="width: 150px;" placeholder="Search"/>
+					<div class="input-group-btn">
+						<button class="btn btn-sm btn-default"><i class="fa fa-search"></i></button>
+					</div>
+				</div>
+			</div>										
+		</div><!-- /.box-header -->
+		<div class="box-body no-padding">
+			<!--<div id="world-map" style="height: 300px;"></div>-->
+			<div class="table-responsive">
+				<!-- .table - Uses sparkline charts-->
+				<table class="table table-hover">
+					<tr class="hover">
+						<th>Produto</th>
+						<th>Mínimo</th>
+						<th>Supermercado</th>
+						<th>Máximo</th>
+						<th>Supermercado</th>
+					</tr>
+					<tr ng-repeat="item in minMax | filter: search"  data-toggle="modal" data-target="#modalDetalhesProduto" ng-click="detalhesProduto(item.Produto)">
+						<td>{{item.Produto.Nome}}</td>
+						<td><small class="label label-success">{{item.Minimo | currency}}</small></td>
+						<td>{{item.SupermercadoMin.Nome}}</td>
+						<td><small class="label label-success">{{item.Maximo | currency}}</small></td>
+						<td>{{item.SupermercadoMax.Nome}}</td>
+					</tr>
+					
+				</table><!-- /.table -->
+			</div>
+		</div><!-- /.box-body-->
+		<div class="box-footer">
+			<!--<button class="btn btn-info"><i class="fa fa-download"></i> Generate PDF</button>
+			<button class="btn btn-warning"><i class="fa fa-bug"></i> Report Bug</button>-->
+		</div>
+	</div>
+	<!-- /.box -->
+	<div class="modal fade" tabindex="-1"  id="modalDetalhesProduto" tabindex="-1" role="dialog">
+	  <div class="modal-dialog">
+		<div class="modal-content">
+		  <div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			 
+			<h4 class="modal-title">{{produto.Nome}}</h4>
+		  </div>
+		  <div class="modal-body">
+			<canvas id="line" class="chart chart-bar" chart-data="data"
+					  chart-labels="labels" chart-series="series" chart-colours="cores">
+					</canvas> 
+				
+		  </div>
+		  <div class="modal-footer">
+			<button type="button" class="btn btn-default" data-dismiss="modal" id="closeButton">Cancelar</button>
+		  </div>
+		</div><!-- /.modal-content -->
+	  </div><!-- /.modal-dialog -->
+	</div><!-- /.modal -->
+	
+</div>
+
+

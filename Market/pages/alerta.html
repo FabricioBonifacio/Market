@@ -1,0 +1,7 @@
+<div ng-controller="notificationsCtrl">
+  <div ng-repeat="(id, notification) in notifications.notifications track by id" style="float:right">
+    <growl-notification>
+        {{notification}}
+    </growl-notification>
+  </div>
+</div>

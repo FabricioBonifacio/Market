@@ -1,0 +1,241 @@
+<div  ng-controller="compraCtrl">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="box box-success">
+				<div class="box-header">
+					<i class="fa fa-tag"></i><h3 class="box-title"> Compras</h3>  
+					<div class="box-tools">
+						<div class="input-group">
+							<input type="text" name="table_search" class="form-control input-sm pull-right" ng-model="search" style="width: 150px;" placeholder="Search"/>
+							<div class="input-group-btn">
+								<button class="btn btn-sm btn-default"><i class="fa fa-search"></i></button>
+							</div>
+						</div>
+					</div>										
+				</div><!-- /.box-header -->
+				<div class="box-body no-padding">
+					<table class="table table-hover">
+						<tr class="hover">
+							<th style="width: 10px">#</th>
+							<th>Supermercado</th>
+							<th>Pagamento</th>
+							<th>Data</th>
+							<th>Valor</th>
+							<th></th>
+						</tr>
+						<tr ng-repeat='compra in compras | filter: search'>
+							<td>{{compra.ID}}</td>
+							<td>{{compra.Supermercado.Nome}}</td>
+							<td>{{compra.FormaPagamento.Nome}}</td>
+							<td>{{compra.Data | date:"dd/MM/yyyy"}}</td>
+							<td><small class="label label-success">{{compra.Valor | currency}}</small></td>
+							<td>
+								<button class="btn btn-danger btn-xs pull-right" style="margin-right:20px" ng-click="excluir(compra)"><i class="fa fa-trash"></i> </button>
+								<button class="btn btn-success btn-xs pull-right" style="margin-right:10px" data-toggle="modal" data-target="#modalCompra" ng-click="editar(compra)"><i class="fa fa-edit"></i> </button>
+								<button class="btn btn-warning btn-xs pull-right" style="margin-right:10px" data-toggle="modal" data-target="#modalListItens"  ng-click="inserirItens(compra)"><i class="fa fa-list"></i> </button>
+							</td>
+						</tr>	
+					</table>
+				</div><!-- /.box-body -->
+				<div class="box-footer clearfix no-border">
+					<button class="btn btn-primary pull-right" data-toggle="modal" data-target="#modalCompra" ng-click="novo()"><i class="fa fa-plus"></i> Adicionar Compra</button>										
+				</div>
+			</div><!-- /.box -->
+		</div><!-- /.col -->
+	</div><!-- /. row -->
+	<div class="modal fade" tabindex="-1"  id="modalCompra" tabindex="-1" role="dialog">
+	  <div class="modal-dialog" style="width: 800px">
+		<div class="modal-content">
+		  <div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			 
+			<h4 class="modal-title">Nova Compra</h4>
+		  </div>
+		  <div class="modal-body">
+			<form  name="compraForm">
+			  <div class="row">
+				<div class="col-xs-6">
+					<div class="input-group">
+						<span class="input-group-addon">Supermercado</span>
+						<select class="form-control" ng-model="compra.Supermercado" ng-options="supermercado.Nome for supermercado in supermercados | orderBy:nome" ng-required="true">
+							<option value="">Selecione um supermercado</option>
+						</select>							
+					</div>
+				</div>
+				<div class="col-xs-6">
+					<div class="input-group">
+						<span class="input-group-addon">Pagamento</span>
+						<select class="form-control" ng-model="compra.FormaPagamento" ng-options="formaPagamento.Nome for formaPagamento in formasPagamento | orderBy:nome" ng-required="true">
+							<option value="">Selecione uma forma de pagamento</option>
+						</select>
+					</div>
+				</div>
+			  </div>
+			  <div class="row" style="margin-top: 10px">
+				<div class="col-xs-6">
+					<div class="input-group">
+						<div class="input-group-addon">
+							<i class="fa fa-calendar"></i>
+						</div>
+						<input type="text" class="form-control" ng-model="compra.DataTexto" ng-required="true" data-inputmask="'alias': 'dd/mm/yyyy'" data-mask/>
+					</div>
+				</div>
+			  </div>
+			</form>
+			<br />
+			<div class="box box-danger">
+				<div class="box-header">
+					<i class="fa fa-tag"></i><h3 class="box-title"> Itens da Compra</h3>  	
+					<div class="pull-right box-tools">                                        
+						<button type="button" class="btn btn-danger"  data-toggle="modal" data-target="#modalItem" ng-click="novoItem()">Adicionar Item</button>
+					</div><!-- /. tools -->					
+				</div><!-- /.box-header -->
+				<div class="box-body no-padding">
+					<table class="table table-hover">
+						<tr class="hover">
+							<th style="width: 10px">#</th>
+							<th>Produto</th>
+							<th>Quantidade</th>
+							<th>Unidade</th>
+							<th>Valor Unitário</th>
+							<th>Valor Total</th>
+							<th></th>
+						</tr>
+						<tr ng-repeat="item in itens">
+							<td>{{item.ID}}</td>
+							<td>{{item.Produto.Nome}}</td>
+							<td>{{item.Quantidade}}</td>
+							<td><small class="label label-warning">{{item.Produto.Unidade.Sigla}}</small></td>
+							<td><small class="label label-success">{{item.ValorUnitario | currency}}</small></td>
+							<td><small class="label label-success">{{item.ValorTotal | currency}}</small></td>
+							<td>
+								<button class="btn btn-danger btn-xs pull-right" style="margin-right:20px" ng-click="excluirItem(item)"><i class="fa fa-trash"></i> </button>
+								<button class="btn btn-success btn-xs pull-right" style="margin-right:10px" data-toggle="modal" data-target="#modalItem" ng-click="editarItem(item)"><i class="fa fa-edit"></i> </button>
+						</tr>
+					</table>
+					</div><!-- /.box-body -->
+				<div class="box-footer clearfix no-border">	
+					<div class="input-group pull-right">
+						<!--<button type="button" class="btn btn-danger"  data-toggle="modal" data-target="#modalItem">Adicionar Item</button>-->
+					</div>
+				</div>
+			</div><!-- /.box -->
+		  </div>
+		  <div class="modal-footer">
+			<button type="button" class="btn btn-default" data-dismiss="modal" id="closeButton">Cancelar</button>
+			<button type="button" class="btn btn-primary" ng-click="adicionar(compra)" ng-disabled="compraForm.$invalid">Salvar</button>
+		  </div>
+		</div><!-- /.modal-content -->
+	  </div><!-- /.modal-dialog -->
+	</div><!-- /.modal -->
+	
+	<div class="modal fade" tabindex="-1"  id="modalListItens" tabindex="-1" role="dialog">
+	  <div class="modal-dialog" style="width: 800px">
+		<div class="modal-content">
+		  <div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			 
+			<h4 class="modal-title">Nova Compra</h4>
+		  </div>
+		  <div class="modal-body">
+			<div class="box box-danger">
+				<div class="box-header">
+					<i class="fa fa-tag"></i><h3 class="box-title"> Itens da Compra</h3>  	
+					<div class="pull-right box-tools">                                        
+						<button type="button" class="btn btn-danger"  data-toggle="modal" data-target="#modalItem" ng-click="novoItem()">Adicionar Item</button>
+					</div><!-- /. tools -->					
+				</div><!-- /.box-header -->
+				<div class="box-body no-padding">
+					<table class="table table-hover">
+						<tr class="hover">
+							<th style="width: 10px">#</th>
+							<th>Produto</th>
+							<th>Quantidade</th>
+							<th>Unidade</th>
+							<th>Valor Unitário</th>
+							<th>Valor Total</th>
+							<th></th>
+						</tr>
+						<tr ng-repeat="item in compra.Itens">
+							<td>{{item.ID}}</td>
+							<td>{{item.Produto.Nome}}</td>
+							<td>{{item.Quantidade}}</td>
+							<td><small class="label label-warning">{{item.Produto.Unidade.Sigla}}</small></td>
+							<td><small class="label label-success">{{item.ValorUnitario | currency}}</small></td>
+							<td><small class="label label-success">{{item.ValorTotal | currency}}</small></td>
+							<td>
+								<button class="btn btn-danger btn-xs pull-right" style="margin-right:20px" ng-click="excluirItem(item)"><i class="fa fa-trash"></i> </button>
+								<button class="btn btn-success btn-xs pull-right" style="margin-right:10px" data-toggle="modal" data-target="#modalItem" ng-click="editarItem(item)"><i class="fa fa-edit"></i> </button>
+						</tr>
+					</table>
+					</div><!-- /.box-body -->
+				<div class="box-footer clearfix no-border">	
+					<div class="input-group pull-right">
+						<!--<button type="button" class="btn btn-danger"  data-toggle="modal" data-target="#modalItem">Adicionar Item</button>-->
+					</div>
+				</div>
+			</div><!-- /.box -->
+		  </div>
+		  <div class="modal-footer">
+			<button type="button" class="btn btn-default" data-dismiss="modal" id="closeButton">Cancelar</button>
+			<button type="button" class="btn btn-primary" ng-click="adicionar(compra)" ng-disabled="compraForm.$invalid">Salvar</button>
+		  </div>
+		</div><!-- /.modal-content -->
+	  </div><!-- /.modal-dialog -->
+	</div><!-- /.modal -->
+	
+	<div class="modal fade" tabindex="-1"  id="modalItem" tabindex="-1" role="dialog">
+	  <div class="modal-dialog">
+		<div class="modal-content">
+		  <div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			 
+			<h4 class="modal-title">Novo Item</h4>
+		  </div>
+		  <div class="modal-body">
+			<form name="itemForm">
+				<div class="row">
+					<div class="col-xs-12">
+						<div class="input-group">
+						<span class="input-group-addon">Produto</span>
+						<select class="form-control" ng-model="item.Produto" ng-options="produto.Nome for produto in produtos | orderBy:NOME" ng-required="true">
+							<option value="">Selecione um produto</option>
+						</select>							
+					</div>
+					</div>
+				</div>
+				<br />
+				<div class="row">
+					<div class="col-xs-6">
+						<div class="input-group">
+							<span class="input-group-addon">Quantidade</span>
+							<input type="text" class="form-control" ng-model="item.Quantidade" ng-required="true">
+						</div>
+					</div>
+					<div class="col-xs-6">
+						<div class="input-group">
+							<span class="input-group-addon">Valor (R$)</span>
+							<input type="text" class="form-control" ng-model="item.ValorUnitario" ng-currency ng-required="true">
+						</div>
+					</div>
+				</div>	
+			</form>
+		  </div>
+		  <div class="modal-footer">
+			<button type="button" class="btn btn-default" data-dismiss="modal" id="closeButtonItem">Cancelar</button>
+			<button type="button" class="btn btn-primary" ng-click="adicionarItem(item)" ng-disabled="itemForm.$invalid">Salvar</button>
+		  </div>
+		</div><!-- /.modal-content -->
+	  </div><!-- /.modal-dialog -->
+	</div><!-- /.modal -->
+</div>
+ <script type="text/javascript">
+	$(function() {
+		//Datemask dd/mm/yyyy
+		$("#datemask").inputmask("dd/mm/yyyy", {"placeholder": "dd/mm/yyyy"});
+		//Datemask2 mm/dd/yyyy
+	   // $("#datemask2").inputmask("mm/dd/yyyy", {"placeholder": "mm/dd/yyyy"});
+		//Money Euro
+		$("[data-mask]").inputmask();		
+	});
+</script>	

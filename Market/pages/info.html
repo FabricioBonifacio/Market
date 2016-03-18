@@ -1,0 +1,175 @@
+<div ng-controller="infoCtrl">
+	<div class="row">
+		<div class="col-lg-3 col-xs-6">
+			<!-- small box -->
+			<div class="small-box bg-aqua">
+				<div class="inner">
+					<h3>
+						{{info.QuantidadeItensCompra}}
+					</h3>
+					<p>
+						Itens de Compra
+					</p>
+				</div>
+				<div class="icon">
+					<i class="ion ion-bag"></i>
+				</div>
+				<a href="#" class="small-box-footer">
+					More info <i class="fa fa-arrow-circle-right"></i>
+				</a>
+			</div>
+		</div><!-- ./col -->
+		<div class="col-lg-3 col-xs-6">
+			<!-- small box -->
+			<div class="small-box bg-green">
+				<div class="inner">
+					<h3>
+						{{info.QuantidadeCompras}}
+					</h3>
+					<p>
+						Compras
+					</p>
+				</div>
+				<div class="icon">
+					<i class="fa fa-shopping-basket"></i>
+				</div>
+				<a href="#" class="small-box-footer">
+					More info <i class="fa fa-arrow-circle-right"></i>
+				</a>
+			</div>
+			<!--<div class="small-box bg-green">
+				<div class="inner">
+					<h3>
+						53<sup style="font-size: 20px">%</sup>
+					</h3>
+					<p>
+						Bounce Rate
+					</p>
+				</div>
+				<div class="icon">
+					<i class="ion ion-stats-bars"></i>
+				</div>
+				<a href="#" class="small-box-footer">
+					More info <i class="fa fa-arrow-circle-right"></i>
+				</a>
+			</div>-->
+		</div><!-- ./col -->
+		<div class="col-lg-3 col-xs-6">
+			<!-- small box -->
+			<div class="small-box bg-yellow">
+				<div class="inner">
+					<h3>
+						{{info.ValorMedioCompras | currency}}
+					</h3>
+					<p>
+						Valor Médio Compras
+					</p>
+				</div>
+				<div class="icon">
+					<i class="fa fa-usd"></i>
+				</div>
+				<a href="#" class="small-box-footer">
+					More info <i class="fa fa-arrow-circle-right"></i>
+				</a>
+			</div>
+		</div><!-- ./col -->
+		<div class="col-lg-3 col-xs-6">
+			<!-- small box -->
+			<div class="small-box bg-red">
+				<div class="inner">
+					<h3>
+						{{info.ValorCompras | currency}}
+					</h3>
+					<p>
+						Valor em Compras
+					</p>
+				</div>
+				<div class="icon">
+					<i class="fa fa-money"></i>
+				</div>
+				<a href="#" class="small-box-footer">
+					More info <i class="fa fa-arrow-circle-right"></i>
+				</a>
+			</div>
+		</div><!-- ./col -->
+	</div><!-- /.row -->
+	
+	<div class="row">
+		<div class="col-lg-3 col-xs-6">
+			<!-- small box -->
+			<div class="small-box bg-lime">
+				<div class="inner">
+					<h3>
+						{{info.ProdutoMaisComprado.Nome}}
+					</h3>
+					<p>
+						Produto Mais Comprado
+					</p>
+				</div>
+				<div class="icon">
+					<i class="fa fa-archive"></i>
+				</div>
+				<a href="#" class="small-box-footer">
+					More info <i class="fa fa-arrow-circle-right"></i>
+				</a>
+			</div>
+		</div><!-- ./col -->
+		<div class="col-lg-3 col-xs-6">
+			<!-- small box -->
+			<div class="small-box bg-orange">
+				<div class="inner">
+					<h3>
+						{{info.SupermercadoMaisComprado.Nome}}
+					</h3>
+					<p>
+						Supermercado Mais Comprado
+					</p>
+				</div>
+				<div class="icon">
+					<i class="fa fa-building"></i>
+				</div>
+				<a href="#" class="small-box-footer">
+					More info <i class="fa fa-arrow-circle-right"></i>
+				</a>
+			</div>
+		</div><!-- ./col -->
+		<div class="col-lg-3 col-xs-6">
+			<!-- small box -->
+			<div class="small-box bg-purple">
+				<div class="inner">
+					<h3>
+						{{info.CategoriaMaisComprada.Nome}}
+					</h3>
+					<p>
+						Categoria Mais Comprada
+					</p>
+				</div>
+				<div class="icon">
+					<i class="fa fa-tags"></i>
+				</div>
+				<a href="#" class="small-box-footer">
+					More info <i class="fa fa-arrow-circle-right"></i>
+				</a>
+			</div>
+		</div><!-- ./col -->
+		<div class="col-lg-3 col-xs-6">
+			<!-- small box -->
+			<div class="small-box bg-blue">
+				<div class="inner">
+					<h3>
+						{{info.FormaPagamentoMaisUtilizado.Nome}}
+					</h3>
+					<p>
+						Forma de Pagamento Mais Utilizada
+					</p>
+				</div>
+				<div class="icon">
+					<i class="fa fa-credit-card"></i>
+				</div>
+				<a href="#" class="small-box-footer">
+					More info <i class="fa fa-arrow-circle-right"></i>
+				</a>
+			</div>
+		</div><!-- ./col -->
+	</div><!-- /.row -->
+</div>

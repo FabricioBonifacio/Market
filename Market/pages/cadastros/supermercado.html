@@ -1,0 +1,62 @@
+<div  ng-controller="supermercadoCtrl">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="box box-success">
+				<div class="box-header">
+					<i class="fa fa-tag"></i><h3 class="box-title"> Supermercado</h3>  
+					<div class="box-tools">
+						<div class="input-group">
+							<input type="text" name="table_search" class="form-control input-sm pull-right" ng-model="search" style="width: 150px;" placeholder="Search"/>
+							<div class="input-group-btn">
+								<button class="btn btn-sm btn-default"><i class="fa fa-search"></i></button>
+							</div>
+						</div>
+					</div>										
+				</div><!-- /.box-header -->
+				<div class="box-body no-padding">
+					<table class="table table-hover" >
+						<tr class="hover">
+							<th style="width: 10px">#</th>
+							<th>Supermercado</th>
+						</tr>
+						<tr ng-repeat='supermercado in supermercados | filter: search'>
+							<td>{{supermercado.ID}}</td>
+							<td>{{supermercado.Nome}}</td>
+							<th></th>
+							<td>
+								<button class="btn btn-danger btn-xs pull-right" style="margin-right:20px" ng-click="excluir(supermercado)"><i class="fa fa-trash"></i> </button>
+								<button class="btn btn-success btn-xs pull-right" style="margin-right:10px" data-toggle="modal" data-target="#modalSupermercado" ng-click="editar(supermercado)"><i class="fa fa-edit"></i> </button>
+							</td>
+						</tr>
+					</table>
+				</div><!-- /.box-body -->
+				<div class="box-footer clearfix no-border">
+					<button class="btn btn-primary pull-right" data-toggle="modal" data-target="#modalSupermercado" ng-click="novo()"><i class="fa fa-plus"></i> Adicionar Supermercado</button>										
+				</div>
+			</div><!-- /.box -->
+		</div><!-- /.col -->
+	</div><!-- /. row -->
+	<div class="modal fade" tabindex="-1"  id="modalSupermercado" tabindex="-1" role="dialog">
+	  <div class="modal-dialog">
+		<div class="modal-content">
+		  <div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			 
+			<h4 class="modal-title">Novo Supermercado</h4>
+		  </div>
+		  <div class="modal-body">
+			<form name="supermercadoForm">
+				<div class="input-group">
+					<span class="input-group-addon">Supermercado</span>
+					<input type="text" ng-model="supermercado.Nome" name="nome" class="form-control" ng-required="true" ng-minlength="3">
+				</div>
+			</form>
+		  </div>
+		  <div class="modal-footer">
+			<button type="button" class="btn btn-default" data-dismiss="modal" id="closeButton">Cancelar</button>
+			<button type="button" class="btn btn-primary" ng-click="adicionar(supermercado)" ng-disabled="supermercadoForm.$invalid">Salvar</button>
+		  </div>
+		</div><!-- /.modal-content -->
+	  </div><!-- /.modal-dialog -->
+	</div><!-- /.modal -->
+</div>
